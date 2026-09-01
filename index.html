@@ -318,7 +318,14 @@
 <script>
  
 
-  const THREE_HOURS = 3 * 60 * 60 * 1000;
+  const winners = [
+  { name: "Winner 1", time: Date.now() },
+  { name: "Winner 2", time: Date.now() },
+  { name: "Winner 3", time: Date.now() },
+  { name: "Winner 4", time: Date.now() },
+  { name: "Winner 5", time: Date.now() }
+];
+ const THREE_HOURS = 3 * 60 * 60 * 1000;
 function showWinners() {
   const list = document.getElementById("winner-list");
   const now = Date.now();
