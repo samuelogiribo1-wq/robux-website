@@ -173,6 +173,33 @@
     border: 4px solid #a855f7;
     box-shadow: 0 0 25px #8b5cf6;
     margin-bottom: 20px;
+}#winners {
+  text-align: center;
+  margin: 40px auto;
+  max-width: 600px;
+}
+
+#winners h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+.winner {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 20px;
+  margin: 10px 0;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.winner strong {
+  font-size: 20px;
+}
+
+.winner span {
+  font-size: 18px;
 }
     </style>
 </head>
@@ -283,5 +310,37 @@
     <br>
     © 2026 — All rights reserved.
 </footer>
-</body>
+<section id="winners">
+  <h2>🏆 Recent Winners</h2>
+  <div id="winner-list"></div>
+</section>
+
+<script>
+  const winners = [
+    { name: "Winner 1", time: Date.now() },
+    { name: "Winner 2", time: Date.now() },
+    { name: "Winner 3", time: Date.now() }
+  ];
+
+  const THREE_HOURS = 3 * 60 * 60 * 1000;
+
+  function showWinners() {
+    const list = document.getElementById("winner-list");
+    const now = Date.now();
+
+    const activeWinners = winners.filter(
+      winner => now - winner.time < THREE_HOURS
+    );
+
+    list.innerHTML = activeWinners.map((winner, index) => `
+      <div class="winner">
+        <strong>#${index + 1}</strong>
+        <span>${winner.name}</span>
+      </div>
+    `).join("");
+  }
+
+  showWinners();
+  setInterval(showWinners, 60000);
+</script> </body>
 </html>
