@@ -319,22 +319,35 @@
  
 
   const THREE_HOURS = 3 * 60 * 60 * 1000;
+function showWinners() {
+  const list = document.getElementById("winner-list");
+  const now = Date.now();
 
-  function showWinners() {
-    const list = document.getElementById("winner-list");
-    const now = Date.now();
+  const activeWinners = winners.filter(
+    winner => now - winner.time < THREE_HOURS
+  );
 
-    const activeWinners = winners.filter(
-      winner => now - winner.time < THREE_HOURS
+  list.innerHTML = activeWinners.map((winner, index) => {
+    const timeLeft = THREE_HOURS - (now - winner.time);
+
+    const hours = Math.floor(timeLeft / (1000 * 60 * 60));
+    const minutes = Math.floor(
+      (timeLeft % (1000 * 60 * 60)) / (1000 * 60)
+    );
+    const seconds = Math.floor(
+      (timeLeft % (1000 * 60)) / 1000
     );
 
-    list.innerHTML = activeWinners.map((winner, index) => `
+    return `
       <div class="winner">
         <strong>#${index + 1}</strong>
         <span>${winner.name}</span>
+        <small>⏰ ${hours}h ${minutes}m ${seconds}s left</small>
       </div>
-    `).join("");
-  }
+    `;
+  }).join("");
+}
+ 
 
   showWinners();
   setInterval(showWinners, 60000);
